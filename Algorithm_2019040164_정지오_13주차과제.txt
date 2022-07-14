@@ -1,0 +1,48 @@
+//programming code//
+
+void hamiltonian(index i)
+{
+	index j;
+
+	if(promising(i))
+		if(i == n-1)
+			cout << vindex[0] through vindex[n-1];
+		else
+			for(j=2;j <= n;j++) {		// 모든 정점의 다음 정점을
+				vcolor[i+1] = j;	// 시도해 본다.
+				hamiltonian(i+1);
+			}
+}
+
+bool promising(index i)
+{
+	index j=1;
+	bool switch = true;
+
+	if(i == n-1 && !W[vindex[n-1]][vindex[0]])
+		switch = false;			// 첫번째 정점은 마지막 정점과
+	else if(i > 0 && !W[vindex[i-1]][vindex[i]])
+		switch = false;			// 인접해야 하고, i번째 정점은
+	else {					// (i-1)번째 정점과 인접해야 한다.
+		while(j < i && switch) {
+			if(vindex[i] == vindex[j])	// 정점이 이미 선택되었는지
+				swicth = false;	// 검사한다.
+			j++;
+		}
+	}
+	return switch;
+}
+
+
+//pseudo-code//
+j ←1
+bool switch ← true
+if i == n-1 and !W[vindex[n-1]][vindex[0]]
+    do switch ← false
+if i > 0 and !W[vindex[i-1]][vindex[i]]
+    do switch ← false
+else 
+    while j < i and switch
+        if vindex[i] = vindex[j]
+            switch ← false
+        j ← j+1
